@@ -2,8 +2,8 @@
 # fast note taking app
 
 # configuration
-NOTES_DIR=~/note
-#NOTES_DIR="/path/to/your/notes"
+#NOTES_DIR=~/note
+NOTES_DIR="/path/to/your/notes"
 QUEUE_FILE="$NOTES_DIR/todo/queue.md"
 EDITOR=nvim
 FILE_MANAGER="ranger" # could be [ranger, nvim, ...]
