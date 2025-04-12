@@ -36,6 +36,7 @@ print_usage() {
 	echo "  f         fuzzy search note content"
 	echo "  q [n=10]  list the top n queue task"
 	echo "  eq|qe     edit queue list in editor"
+	echo "  qf        list the top queue tasks, fill the terminal"
 	echo "  ec|ce     edit configuration(this bash file) in editor"
 	echo "  l         edit list in editor"
 	echo "  install   install this script to /bin/note"
@@ -84,6 +85,24 @@ edit_queue_list() {
 	$EDITOR "$QUEUE_FILE"
 }
 
+show_queue_fill() {
+	local lines total queue_lines pad_lines
+	lines=$(tput lines)
+	total=$((lines - 3))
+
+	queue_lines=$(wc -l < "$QUEUE_FILE")
+	pad_lines=$((total - queue_lines))
+
+	show_queue "$total"
+
+	if (( pad_lines > 0 )); then
+		for ((i = 0; i <= pad_lines; i++)); do
+			echo ""
+		done
+	fi
+}
+
+
 edit_configuration() {
 	SCRIPT_FILE="$(realpath "$0")"
 	$EDITOR "$SCRIPT_FILE"
@@ -102,8 +121,8 @@ install() {
 		exit 1
 	fi
 
-	print_job "[CMD]: sudo mv $SCRIPT_FILE /bin/note"
-	sudo mv "$SCRIPT_FILE" "/bin/note"
+	print_job "[CMD]: sudo cp $SCRIPT_FILE /bin/note"
+	sudo cp "$SCRIPT_FILE" "/bin/note"
 
 	print_success "Installation successful! You can now run 'note' from anywhere."
 }
@@ -128,6 +147,7 @@ main() {
 			show_queue "$queue_count"
 			;;
 		eq|qe) edit_queue_list ;;
+		qf) show_queue_fill ;;
 		ec|ce) edit_configuration ;;
 		l) edit_list ;;
 		install) install ;;
