@@ -5,6 +5,7 @@
 #NOTES_DIR=~/note
 NOTES_DIR="/path/to/your/notes"
 QUEUE_FILE="$NOTES_DIR/todo/queue.md"
+LIST_FILE="$NOTES_DIR/todo/list.md"
 EDITOR=nvim
 FILE_MANAGER="ranger" # could be [ranger, nvim, ...]
 
@@ -36,6 +37,7 @@ print_usage() {
 	echo "  q [n=10]  list the top n queue task"
 	echo "  eq|qe     edit queue list in editor"
 	echo "  ec|ce     edit configuration(this bash file) in editor"
+	echo "  l         edit list in editor"
 	echo "  install   install this script to /bin/note"
 }
 
@@ -87,6 +89,10 @@ edit_configuration() {
 	$EDITOR "$SCRIPT_FILE"
 }
 
+edit_list() {
+	$EDITOR "$LIST_FILE"
+}
+
 
 install() {
 	SCRIPT_FILE="$(realpath "$0")"
@@ -123,6 +129,7 @@ main() {
 			;;
 		eq|qe) edit_queue_list ;;
 		ec|ce) edit_configuration ;;
+		l) edit_list ;;
 		install) install ;;
 
 		h|-h|help|--help) print_usage ;;
