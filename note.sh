@@ -7,7 +7,7 @@ NOTES_DIR="/path/to/your/notes"
 QUEUE_FILE="$NOTES_DIR/todo/queue.md"
 LIST_FILE="$NOTES_DIR/todo/list.md"
 EDITOR=nvim
-FILE_MANAGER="ranger" # could be [ranger, nvim, ...]
+FILE_MANAGER="lf" # could be [ranger, nvim, ...]
 
 
 supports_color() {
